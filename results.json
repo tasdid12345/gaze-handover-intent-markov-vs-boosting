@@ -1,0 +1,37 @@
+{
+  "question": "Can a class-balanced LightGBM model on gaze n-gram and back-and-forth features predict handover intent better than a first-order Markov chain classifier on simulated gaze sequences?",
+  "method": "Seeded simulated AOI gaze sequences (4 AOIs, 60 steps), stratified 70/30 split. Baseline: per-class first-order Markov chains with LLR and a CV-tuned threshold. Improved: class-balanced LightGBM tuned by 3-fold CV on n-gram, alternation, dwell and last-state features. 3 seeds.",
+  "dataset": {
+    "name": "Simulated gaze AOI sequences (handover vs no handover)",
+    "source_url": "generated in script with numpy (no external data)",
+    "n_rows": 3000,
+    "n_train": 2100,
+    "n_test": 900,
+    "same_as_paper": false,
+    "baseline_is_papers_method": false
+  },
+  "metric_name": "Handover-class F1 on test set",
+  "higher_is_better": true,
+  "baseline": "First-order Markov chain per class, log-likelihood-ratio classifier, threshold chosen on out-of-fold train scores to maximise F1.",
+  "improved": "Class-balanced LightGBM on bigram/trigram counts, object-robot alternation counts, dwell-time statistics and last-3 states; grid tuned by 3-fold CV; threshold chosen on out-of-fold train probabilities.",
+  "metrics": {
+    "baseline_f1": 0.4760509618304101,
+    "baseline_f1_std": 0.0029434007590022574,
+    "baseline_auc": 0.6318999090506285,
+    "baseline_auc_std": 0.0,
+    "baseline_acc": 0.5766666666666667,
+    "baseline_acc_std": 0.021998877636914795,
+    "baseline_score": 0.4760509618304101,
+    "baseline_score_std": 0.0029434007590022574,
+    "improved_f1": 0.7036323108287127,
+    "improved_f1_std": 0.0011891406488148601,
+    "improved_auc": 0.864625358550407,
+    "improved_auc_std": 0.004052614287419571,
+    "improved_acc": 0.7981481481481482,
+    "improved_acc_std": 0.001047565601757855,
+    "improved_score": 0.7036323108287127,
+    "improved_score_std": 0.0011891406488148601,
+    "improvement": 0.22758134899830257
+  },
+  "notes": "Simulated data built so handover differs mainly by longer object-robot back-and-forth bursts while one-step statistics are similar; the result reflects this design and is not a reproduction of the paper. Data simulated and split once (seed 42); seeds 42-44 vary CV folds and LightGBM randomness only, so the Markov baseline std comes only from threshold-fold variation. Baseline is a generic Markov chain, not the paper's method."
+}
