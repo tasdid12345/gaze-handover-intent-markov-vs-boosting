@@ -24,6 +24,34 @@ python analysis.py
 ## Results
 Results are written to `results.json` (and a chart to `figures/`).
 
+## Results (latest run)
+
+On simulated gaze AOI sequences (handover vs no handover, 900-row held-out test set), a standard first-order Markov chain classifier reached handover-class F1 of 0.48, while a class-balanced LightGBM on n-gram and back-and-forth features reached 0.70.
+
+| Metric | Value |
+|---|---|
+| baseline_f1 | 0.4761 |
+| baseline_f1_std | 0.002943 |
+| baseline_auc | 0.6319 |
+| baseline_auc_std | 0 |
+| baseline_acc | 0.5767 |
+| baseline_acc_std | 0.022 |
+| baseline_score | 0.4761 |
+| baseline_score_std | 0.002943 |
+| improved_f1 | 0.7036 |
+| improved_f1_std | 0.001189 |
+| improved_auc | 0.8646 |
+| improved_auc_std | 0.004053 |
+| improved_acc | 0.7981 |
+| improved_acc_std | 0.001048 |
+| improved_score | 0.7036 |
+| improved_score_std | 0.001189 |
+| improvement | 0.2276 |
+
+Run on 2026-10-23. Full output: [results.json](results.json) · [run.log](run.log)
+
+Notes: Simulated data built so handover differs mainly by longer object-robot back-and-forth bursts while one-step statistics are similar; the result reflects this design and is not a reproduction of the paper. Data simulated and split once (seed 42); seeds 42-44 vary CV folds and LightGBM randomness only, so the Markov baseline std comes only from threshold-fold variation. Baseline is a generic Markov chain, not the paper's method.
+
 ## Reference
 
 This project is motivated by the following paper:
